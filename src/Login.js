@@ -69,12 +69,11 @@ const Login = ({ history }) => {
 
         <div>
          <br></br>
-         <br></br>
 
             <Grid container spacing={3}>
         <Grid item xs>
         </Grid>
-        <Grid item xs={4} style={{height: "500px"}}>
+        <Grid item xs={8} sm={8} style={{height: "500px"}}>
           <Paper className={classes.paper} style={{height: "100%"}}>
           <br></br>
             <h2 style={{
