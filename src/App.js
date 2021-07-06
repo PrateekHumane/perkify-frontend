@@ -5,6 +5,7 @@ import React from "react";
 import Console from "./Console";
 import Login from "./Login";
 import SignUp from "./SignUp";
+import ResetPass from "./ResetPass";
 import PrivateRoute from "./PrivateRoute";
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
          </Route>
          <PrivateRoute exact path="/console" component={Console} />
          <Route exact path="/login" component={Login} />
+         <Route exact path ="/passreset" component={ResetPass} />
          <Route exact path="/signup" component={SignUp} />
        </Switch>
      </Router>

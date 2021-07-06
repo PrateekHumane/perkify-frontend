@@ -1,12 +1,9 @@
-import React, { useCallback, useContext } from "react";
+import React, { useCallback, useContext, useState } from "react";
 import { withRouter, Redirect } from "react-router";
 import app from "./firebaseapp.js";
 import { AuthContext } from "./Auth.js";
 import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom'
-
-
-
 
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -24,7 +21,9 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-const Login = ({ history }) => {
+const ResetPass = ({ history }) => {
+
+    const [didSendReset, sentReset] = useState(false)
 
     const classes = useStyles();
     const layout = {
@@ -43,15 +42,13 @@ const Login = ({ history }) => {
       };
 
       
-    const handleLogin = useCallback(
+    const handlePassReset = useCallback(
         async event => {
             const email = event.email 
-            const password = event.password
             try {
                 await app
                     .auth()
-                    .signInWithEmailAndPassword(email, password);
-                history.push("/");
+                    .sendPasswordResetEmail(email).then(sentReset(true));
             } catch (error) {
                 alert(error);
             }
@@ -74,22 +71,23 @@ const Login = ({ history }) => {
             <Grid container spacing={3}>
         <Grid item xs>
         </Grid>
-        <Grid item xs={4} style={{height: "500px"}}>
+        <Grid item xs={4} style={{height: "300px"}}>
           <Paper className={classes.paper} style={{height: "100%"}}>
           <br></br>
+          {didSendReset === false ?(
+<>
             <h2 style={{
           display: "flex",
           justifyContent: "center",
-          alignItems: "left"}}>Sign in to your account </h2> 
-
+          alignItems: "left"}}>Reset your password</h2> 
 <Form {...layout}
-
 name="basic"
 initialValues={{
   remember: true,
 }}
-onFinish={handleLogin}
+onFinish={handlePassReset}
 >
+
     <div>
     <Grid container spacing={0}>
 
@@ -102,7 +100,7 @@ onFinish={handleLogin}
   rules={[
     {
       required: true,
-      message: 'Please input your username!',
+      message: 'Please input your email!',
     },
   ]}
   
@@ -112,40 +110,7 @@ onFinish={handleLogin}
 </Grid> 
 <Grid item xs> </Grid>
 </Grid>
-</div> 
-<div>
-    <Grid container spacing={0}>
-
-    <Grid item xs={1}> </Grid>
-    <Grid item xs={10}>
-    <Grid container spacing={0}>
-    <Grid item xs={4}>
-
-     <h4 style={{textAlign:"left"}}>Password</h4> 
-     </Grid> 
-     <Grid item xs={8} style={{textAlign: "right"}} > 
-        <Link to="./passreset">Forgot your password? </Link>
-    </Grid>
-
-    
-     </Grid>
-    <Form.Item
-  label=""
-  name="password"
-  rules={[
-    {
-      required: true,
-      message: 'Please input your password!',
-    },
-  ]}
->
-  <Input.Password style = {{width: "100%", borderRadius: "5px"}} />
-</Form.Item>
-</Grid> 
-<Grid item xs> </Grid>
-</Grid>
-</div> 
-
+</div>
 
 
 <Grid container spacing={0}>
@@ -158,18 +123,23 @@ onFinish={handleLogin}
 
 <Form.Item style = {{width: "100%", borderRadius: "5px"}} >
   <Button type="primary" htmlType="submit" style = {{width: "100%", borderRadius: "5px"}}>
-    Log in
+    Reset password
   </Button>
 </Form.Item>
 </Grid>
 </Grid>
-  </Form>
-  <Link style={{
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-}} to='./signup'>Don't have an account? Sign up</Link>
+  </Form></>
+  ) 
+    : (<div><h2 style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "left"}}>Check your email for instructions to reset your password
+        </h2> 
+        <p>Didn't get the email? Check your spam folder</p>
+         </div>)
+}
 
+  
 
 
 
@@ -186,4 +156,6 @@ onFinish={handleLogin}
     );
 };
 
-export default withRouter(Login);
+export default withRouter(ResetPass);
+
+

@@ -160,7 +160,6 @@ onFinish={handleSignUp}
      <h4 style={{textAlign:"left"}}>Password</h4> 
      </Grid> 
      <Grid item xs={8} style={{textAlign: "right"}} > 
-        <a>Forgot your password? </a>
     </Grid>
 
     
@@ -189,9 +188,6 @@ onFinish={handleSignUp}
 <Grid item xs={10}>
 
 
-<Form.Item name="remember" valuePropName="checked" spacing={0} style={{textAlign: "left"}}>
-  <Checkbox>Remember me</Checkbox>
-</Form.Item>
 
 
 
