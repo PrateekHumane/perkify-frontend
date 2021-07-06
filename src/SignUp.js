@@ -18,8 +18,8 @@ const useStyles = makeStyles((theme) => ({
       flexGrow: 1,
     },
     paper: {
-      padding: theme.spacing(2),
-      textAlign: 'center',
+      padding: theme.spacing(0),
+      //textAlign: 'center',
       color: theme.palette.text.secondary,
     },
   }));
@@ -83,6 +83,49 @@ initialValues={{
 }}
 onFinish={handleSignUp}
 >
+
+<div>
+    <Grid container spacing={0}>
+
+    <Grid item xs={1}> </Grid>
+    <Grid item xs={5}>
+    <h4 style={{textAlign:"left"}}>First Name</h4> 
+<Form.Item
+  label=""
+  name="firstName"
+  rules={[
+    {
+      required: true,
+      message: 'Please input your first name!',
+    },
+  ]}
+  
+>
+  <Input style = {{width: "95%", borderRadius: "5px"}} />
+</Form.Item>
+</Grid> 
+
+<Grid item xs={5}>
+    <h4 style={{textAlign:"left"}}>Last Name</h4> 
+<Form.Item
+  label=""
+  name="lastName"
+  rules={[
+    {
+      required: true,
+      message: 'Please input your last name!',
+    },
+  ]}
+  
+>
+  <Input style = {{width: "95%", borderRadius: "5px", direction: "ltr"}} />
+</Form.Item>
+</Grid>
+
+<Grid item xs> </Grid>
+</Grid>
+</div> 
+
     <div>
     <Grid container spacing={0}>
 
@@ -155,22 +198,12 @@ onFinish={handleSignUp}
 
 <Form.Item style = {{width: "100%", borderRadius: "5px"}} >
   <Button type="primary" htmlType="submit" style = {{width: "100%", borderRadius: "5px"}}>
-    Submit
+    Sign Up
   </Button>
 </Form.Item>
 </Grid>
 </Grid>
   </Form>
-  <Link style={{
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-}} to='./signup'>Don't have an account? Sign up</Link>
-
-
-
-
-
 
           </Paper>
         </Grid>

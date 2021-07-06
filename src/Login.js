@@ -162,7 +162,7 @@ onFinish={handleLogin}
 
 <Form.Item style = {{width: "100%", borderRadius: "5px"}} >
   <Button type="primary" htmlType="submit" style = {{width: "100%", borderRadius: "5px"}}>
-    Submit
+    Log in
   </Button>
 </Form.Item>
 </Grid>
