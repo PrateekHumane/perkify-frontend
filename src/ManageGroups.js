@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useContext} from "react";
 import {
   BrowserRouter as Router,
   Switch,
@@ -13,6 +13,13 @@ import { Form, Input, Button, Checkbox } from 'antd';
 import { Modal, Tabs } from 'antd';
 import RemovePerks from "./RemovePerks";
 import AddPerks from "./AddPerks";
+import firebase from "firebase/app";
+import 'firebase/firestore';
+import { AuthContext } from "./Auth";
+import allPerks from "./constants";
+import { array } from "yargs";
+import allPerksDict from "./allPerksDict";
+
 
 const columns = [
     {
@@ -139,14 +146,37 @@ const columns = [
       }
 
       
+      const [useEffectComplete, setUseEffectComplete] = useState(false)
+
+      const {currentUser} = useContext(AuthContext);
+
 
       getGroupData()
 
       useEffect(() => {
-        getPeopleRowData() 
-        getPerksData()
+        var db = firebase.firestore()
+          db.collection("admins").doc(currentUser.uid).get().then((doc) => {
+            if (doc.exists) {
+                console.log("Document data:", doc.data());
+                let businessId = doc.data()["companyID"]
+                db.collection("businesses").doc(businessId).get().then((doc) => {
+                  doc.data()["groups"].forEach(d => {
+                    if (d.name === id){
+                      setViewWithPerksData(d.perks)
+                    }
+                  });
+                  setUseEffectComplete(true)
+               
+                })
+                    // doc.data() will be undefined in this case
+                    console.log("No such document!");
+                }
+            }).catch((error) => {
+                console.log("Error getting document:", error);
+            });
         
       }, []);
+
       
       
       function getRemovedPerks(){
@@ -157,9 +187,13 @@ const columns = [
         return removedPerks
     }
 
-    function getPerksData(){
+    function setViewWithPerksData(perkData){
         //TO IMPLEMENT randomPerks => actual perks of the selected group
-        setPerksData(randomPerks)
+        var ret = []
+        perkData.forEach(perk => {
+          ret.push(allPerksDict[perk])
+        });
+        setPerksData(ret)
     }
 
 

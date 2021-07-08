@@ -215,5 +215,6 @@ var allPerks = [
       "Period": "Monthly"
     }
   ]
+  
 
 export default allPerks
