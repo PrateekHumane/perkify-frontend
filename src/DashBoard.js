@@ -1,4 +1,4 @@
-import ClippedDrawer from "./VerticalNav";
+import ClippedDrawer from "./VeritcalNav";
 
 import * as React from 'react';
 import { DataGrid } from '@material-ui/data-grid';

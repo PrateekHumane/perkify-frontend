@@ -1,4 +1,4 @@
-import ClippedDrawer from "./VerticalNav";
+import ClippedDrawer from "./VeritcalNav";
 import React, { useCallback, useContext } from "react";
 import { useState, useEffect } from 'react';
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import ClippedDrawer from "./VerticalNav";
+import ClippedDrawer from "./VeritcalNav";
 import { DataGrid } from '@material-ui/data-grid';
 import Grid from '@material-ui/core/Grid';
 import { Form, Input, Button, Checkbox } from 'antd';
